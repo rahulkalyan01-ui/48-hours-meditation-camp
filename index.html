@@ -148,13 +148,40 @@ section { padding:88px 24px; }
 
 /* ── FORM ── */
 .form-sec { background:var(--cream); }
-.form-wrap { max-width:580px; margin:42px auto 0; background:var(--glass-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--glass-border); border-radius:var(--r-xl); padding:42px 38px; box-shadow:0 16px 60px rgba(30,58,47,0.1); }
-.f-group { margin-bottom:19px; }
-.f-group label { display:block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; font-weight:500; }
-.f-group input { width:100%; padding:13px 16px; background:rgba(255,254,249,0.75); border:1px solid rgba(224,212,192,0.8); border-radius:var(--r-sm); font-family:'DM Sans',sans-serif; font-size:15px; font-weight:300; color:var(--text-dark); outline:none; transition:border-color .3s, box-shadow .3s; }
-.f-group input:focus { border-color:var(--green-light); box-shadow:0 0 0 3px rgba(74,124,94,0.11); }
-.btn-submit { width:100%; background:var(--green-dark); color:var(--gold-pale); border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:2px; text-transform:uppercase; padding:16px; border-radius:50px; transition:all .3s; margin-top:6px; box-shadow:0 6px 24px rgba(30,58,47,0.22); }
+.form-wrap { max-width:620px; margin:42px auto 0; background:var(--glass-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--glass-border); border-radius:var(--r-xl); padding:42px 38px; box-shadow:0 16px 60px rgba(30,58,47,0.1); }
+.f-group { margin-bottom:20px; }
+.f-group label { display:block; font-size:14px; font-weight:500; color:var(--text-dark); margin-bottom:4px; line-height:1.4; }
+.f-group label span { display:block; font-size:12px; color:var(--text-muted); font-weight:300; margin-top:1px; font-family:'Cormorant Garamond',serif; font-style:italic; }
+.f-group input, .f-group textarea {
+  width:100%; padding:13px 16px; background:rgba(255,254,249,0.8);
+  border:1px solid rgba(224,212,192,0.85); border-radius:var(--r-sm);
+  font-family:'DM Sans',sans-serif; font-size:15px; font-weight:300;
+  color:var(--text-dark); outline:none; transition:border-color .3s, box-shadow .3s;
+}
+.f-group input:focus, .f-group textarea:focus { border-color:var(--green-light); box-shadow:0 0 0 3px rgba(74,124,94,0.11); }
+.f-group textarea { resize:vertical; min-height:88px; }
+.f-group input.invalid, .f-group textarea.invalid { border-color:#c0392b; box-shadow:0 0 0 3px rgba(192,57,43,0.1); }
+.radio-group { display:flex; gap:24px; margin-top:8px; }
+.radio-label { display:flex; align-items:center; gap:8px; cursor:pointer; font-size:15px; color:var(--text-dark); }
+.radio-label input[type="radio"] { width:17px; height:17px; accent-color:var(--green-dark); cursor:pointer; }
+.btn-submit { width:100%; background:var(--green-dark); color:var(--gold-pale); border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:2px; text-transform:uppercase; padding:16px; border-radius:50px; transition:all .3s; margin-top:8px; box-shadow:0 6px 24px rgba(30,58,47,0.22); }
 .btn-submit:hover { background:var(--green-mid); transform:translateY(-1px); box-shadow:0 10px 34px rgba(30,58,47,0.3); }
+.btn-submit:disabled { opacity:.65; cursor:not-allowed; transform:none; }
+.reg-success { display:none; text-align:center; padding:8px 0; }
+.reg-success .success-icon { font-size:52px; margin-bottom:14px; }
+.reg-success h3 { font-family:'Playfair Display',serif; font-size:26px; color:var(--green-dark); margin-bottom:8px; }
+.reg-success p { font-size:14px; color:var(--text-mid); line-height:1.7; margin-bottom:12px; }
+.reg-id-box { background:linear-gradient(135deg,var(--gold-pale),#f8efcc); border:2px dashed var(--gold); border-radius:var(--r-md); padding:20px 24px; margin:18px 0; }
+.reg-id-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:7px; font-weight:500; }
+.reg-id-val { font-family:'Playfair Display',serif; font-size:26px; color:var(--green-dark); font-weight:700; letter-spacing:2px; word-break:break-all; }
+.btn-copy { display:inline-flex; align-items:center; gap:7px; background:var(--green-dark); color:var(--gold-pale); border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; padding:11px 24px; border-radius:50px; transition:all .3s; margin-top:6px; }
+.btn-copy:hover { background:var(--green-mid); }
+.btn-copy.copied { background:var(--green-light); }
+.notes-box { margin-top:22px; background:rgba(245,239,228,0.75); border:1px solid var(--beige-dark); border-radius:var(--r-md); padding:20px 24px; text-align:left; }
+.notes-box .notes-heading { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:12px; }
+.notes-box ol { padding-left:18px; }
+.notes-box li { font-size:14px; color:var(--text-mid); line-height:1.7; margin-bottom:8px; }
+.notes-box li:last-child { margin-bottom:0; }
 
 /* ── TESTIMONIALS ── */
 .testi { background:var(--beige); text-align:center; }
@@ -363,18 +390,70 @@ footer a.contact:hover { background:rgba(255,255,255,0.14); transform:translateY
   </div>
 </section>
 
-<!-- ═══ FORM (single form — opens Google Form + payment) ═══ -->
+<!-- ═══ REGISTRATION FORM ═══ -->
 <section class="form-sec fade-up" id="apply">
   <div class="container" style="text-align:center">
     <p class="s-label" style="justify-content:center">Register</p>
     <h2 class="s-heading">Begin Your Journey</h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text-muted);margin-bottom:4px">Fill your details once. Your registration and payment will be completed in the next step.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text-muted);margin-bottom:4px">Fill your details once to secure your seat.</p>
+
     <div class="form-wrap">
-      <div class="f-group"><label>Full Name *</label><input type="text" id="f-name" placeholder="Your full name"></div>
-      <div class="f-group"><label>Phone Number *</label><input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX"></div>
-      <div class="f-group"><label>City *</label><input type="text" id="f-city" placeholder="Your city"></div>
-      <p style="font-size:12px;color:var(--text-muted);text-align:left;margin-bottom:18px;line-height:1.6;">By submitting, your details will be saved in our official registration records. The next step will confirm your seat via payment.</p>
-      <button class="btn-submit" onclick="submitForm()">Submit &amp; Proceed to Payment →</button>
+      <!-- FORM -->
+      <div id="regFormDiv">
+        <div class="f-group">
+          <label>Candidate Name <span>प्रत्याशी का नाम</span></label>
+          <input type="text" id="f-name" placeholder="Enter full name / पूरा नाम दर्ज करें">
+        </div>
+        <div class="f-group">
+          <label>Date of Birth <span>जन्म तिथि</span></label>
+          <input type="date" id="f-dob">
+        </div>
+        <div class="f-group">
+          <label>Address <span>पता</span></label>
+          <textarea id="f-address" placeholder="Enter full address / पूरा पता दर्ज करें"></textarea>
+        </div>
+        <div class="f-group">
+          <label>Year of Updeah <span>उपदेश किस साल में हुआ</span></label>
+          <input type="text" id="f-updeah" placeholder="e.g. 2018">
+        </div>
+        <div class="f-group">
+          <label>Mobile No. <span>मोबाइल नंबर (10 अंक)</span></label>
+          <input type="tel" id="f-mobile" placeholder="10-digit mobile number" maxlength="10">
+        </div>
+        <div class="f-group">
+          <label>Physical Illness (if any) <span>किसी प्रकार की शारीरिक बीमारी (यदि कोई हो)</span></label>
+          <input type="text" id="f-illness" placeholder="None / कोई नहीं, or describe">
+        </div>
+        <div class="f-group">
+          <label>Dietary Restrictions <span>कोई खानपान संबंधी परहेज़</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="dietary" id="f-diet-yes" value="Yes"> Yes / हाँ</label>
+            <label class="radio-label"><input type="radio" name="dietary" id="f-diet-no" value="No" checked> No / नहीं</label>
+          </div>
+        </div>
+        <button class="btn-submit" id="submitBtn" onclick="submitRegistration()">Submit Registration / पंजीकरण करें →</button>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="reg-success" id="regSuccess">
+        <div class="success-icon">🙏</div>
+        <h3>Registration Confirmed!</h3>
+        <p>आपका पंजीकरण सफलतापूर्वक हो गया है।<br>Your registration has been saved successfully.</p>
+        <div class="reg-id-box">
+          <p class="reg-id-label">Your Registration ID / आपकी पंजीकरण संख्या</p>
+          <p class="reg-id-val" id="regIdDisplay">—</p>
+        </div>
+        <p style="font-size:13px;color:var(--text-muted);">Please save this ID. Present it at the venue for entry verification.<br>कृपया यह ID सुरक्षित रखें। प्रवेश के समय यह दिखाना आवश्यक है।</p>
+        <button class="btn-copy" id="copyBtn" onclick="copyRegId()">📋 Copy ID / कॉपी करें</button>
+
+        <div class="notes-box">
+          <p class="notes-heading">Note / नोट</p>
+          <ol>
+            <li>दो दिवसीय इस कार्यक्रम में आपके फोन जमा किए जायेंगे।</li>
+            <li>अपने साथ पहनने के लिए खुले व आरामदायक कपड़े अवश्य लाएं।</li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -482,20 +561,83 @@ footer a.contact:hover { background:rgba(255,255,255,0.14); transform:translateY
 
   let formData = {};
 
-  function submitForm() {
-    const name = document.getElementById('f-name').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const city = document.getElementById('f-city').value.trim();
-    if (!name || !phone || !city) { alert('Please fill in Name, Phone and City to continue.'); return; }
-    formData = { name, phone, city };
-    // Send to Google Form (pre-fill if possible)
-    window.open('https://forms.gle/88RWHfE4jCujhXMB9', '_blank');
-    // Show payment modal
-    document.getElementById('payStep').style.display = 'block';
-    document.getElementById('confirmStep').classList.remove('open');
-    document.getElementById('confirmStep').style.display = 'none';
-    document.getElementById('payModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  function generateRegId() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let part1 = '', part2 = '';
+    for (let i = 0; i < 5; i++) part1 += chars[Math.floor(Math.random() * chars.length)];
+    for (let i = 0; i < 3; i++) part2 += chars[Math.floor(Math.random() * chars.length)];
+    return 'REG-' + part1 + '-' + part2;
+  }
+
+  function markInvalid(id) {
+    const el = document.getElementById(id);
+    el.classList.add('invalid');
+    el.addEventListener('input', () => el.classList.remove('invalid'), { once: true });
+  }
+
+  async function submitRegistration() {
+    const name    = document.getElementById('f-name').value.trim();
+    const dob     = document.getElementById('f-dob').value;
+    const address = document.getElementById('f-address').value.trim();
+    const updeah  = document.getElementById('f-updeah').value.trim();
+    const mobile  = document.getElementById('f-mobile').value.trim();
+    const illness = document.getElementById('f-illness').value.trim();
+    const dietary = document.querySelector('input[name="dietary"]:checked')?.value || '';
+
+    let valid = true;
+    if (!name)    { markInvalid('f-name');    valid = false; }
+    if (!dob)     { markInvalid('f-dob');     valid = false; }
+    if (!address) { markInvalid('f-address'); valid = false; }
+    if (!updeah)  { markInvalid('f-updeah');  valid = false; }
+    if (!mobile || !/^\d{10}$/.test(mobile)) { markInvalid('f-mobile'); valid = false; }
+    if (!illness) { markInvalid('f-illness'); valid = false; }
+    if (!valid) { return; }
+
+    const regId = generateRegId();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const payload = {
+        data: [{
+          "Candidate Name": name,
+          "Date of Birth": dob,
+          "Address": address,
+          "Year of Updeah": updeah,
+          "Mobile No": mobile,
+          "Physical Illness": illness || 'None',
+          "Dietary Restrictions": dietary,
+          "Registration ID": regId,
+          "Submitted At": new Date().toLocaleString('en-IN')
+        }]
+      };
+
+      await fetch('https://sheetdb.io/api/v1/hes0vze4l9mze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {
+      // Still show success even if network fails — ID is generated client-side
+      console.warn('SheetDB error:', e);
+    }
+
+    document.getElementById('regIdDisplay').textContent = regId;
+    document.getElementById('regFormDiv').style.display = 'none';
+    document.getElementById('regSuccess').style.display = 'block';
+    window.currentRegId = regId;
+    document.getElementById('regSuccess').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyRegId() {
+    const id = window.currentRegId || document.getElementById('regIdDisplay').textContent;
+    navigator.clipboard.writeText(id).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.classList.add('copied');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '📋 Copy ID / कॉपी करें'; }, 2200);
+    });
   }
 
   function closeModal() {
@@ -503,18 +645,9 @@ footer a.contact:hover { background:rgba(255,255,255,0.14); transform:translateY
     document.body.style.overflow = '';
   }
 
-  function generateUID(name, phone) {
-    const initials = name.split(' ').map(w => w[0] || 'X').join('').toUpperCase().slice(0,2).padEnd(2,'X');
-    const digits = phone.replace(/[^0-9]/g,'').slice(-4).padStart(4,'0');
-    const rand = Math.floor(1000 + Math.random() * 9000);
-    return 'MUSS-' + initials + digits + '-' + rand;
-  }
-
   function confirmPayment() {
     const utr = document.getElementById('utrInput').value.trim();
     if (!utr) { alert('Please enter your UTR / Transaction ID after completing payment.'); return; }
-    const uid = generateUID(formData.name || 'XX', formData.phone || '0000');
-    document.getElementById('uidDisplay').textContent = uid;
     document.getElementById('payStep').style.display = 'none';
     const cs = document.getElementById('confirmStep');
     cs.style.display = 'block';

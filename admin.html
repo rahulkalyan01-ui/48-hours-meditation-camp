@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Admin — 4th 48 Hours Meditation Camp</title>
+<style>:root{--m:#784E4D;--t:#5D3A38;--b:#F4DFD4;--p:#EACDC3}*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,sans-serif;background:#FBF3EB;color:var(--t);padding:16px}
+.g{background:rgba(251,243,235,.7);border:1px solid #fff;box-shadow:0 10px 30px rgba(120,78,77,.08);border-radius:22px;padding:18px;margin-bottom:14px}
+input,select,button{font:inherit;min-height:44px;border-radius:14px;border:1px solid #D7B9B2;padding:6px 12px;background:#fff9}button{background:var(--m);color:#FBF3EB;border-color:var(--m);cursor:pointer}button.s{padding:4px 10px;min-height:34px}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.st div{background:var(--b);border-radius:16px;padding:12px}.st b{display:block;font-size:26px;color:var(--m)}
+.f{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}.w{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:8px;border-bottom:1px solid #D7B9B2;text-align:left;white-space:nowrap}
+#app{display:none}</style></head><body>
+<div class="g" id="login"><h2>Admin sign in</h2><div class="f"><input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button id="go">Sign in</button></div><div id="msg"></div></div>
+<div id="app"><div class="g"><h2 style="margin:0 0 10px">Registrations</h2><div class="st" id="st"></div></div>
+<div class="g"><div class="f"><input id="q" placeholder="Search name / mobile / 4MC-…">
+<select id="fp"><option value="">Payment: All</option><option>PAID</option><option>PENDING</option></select>
+<select id="fm"><option value="">Method: All</option><option>Online</option><option>Cash</option></select>
+<select id="ft"><option value="">Transport: All</option><option>None</option><option>One Way</option><option>Both</option></select>
+<select id="fr"><option value="">Registration: All</option><option>Confirmed</option><option>Pending</option></select><button id="ex">Export CSV</button></div>
+<div class="w"><table><thead><tr><th>No.</th><th>Name</th><th>Mobile</th><th>City</th><th>Amount</th><th>Method</th><th>Payment</th><th>Transport</th><th>Status</th><th>Notify</th><th>Time</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></div></div>
+<script>
+const SB_URL='https://trjzojxsagardeyxpziz.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRyanpvanhzYWdhcmRleXhweml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExOTEyNTIsImV4cCI6MjEwNjc2NzI1Mn0.9MWtTIuMUcojIdpetVsB79NqDvuEfcCNRmFN8VnF7qU';/* same values as camp.html */
+const $=i=>document.getElementById(i);let tok='',D=[];
+const tr=r=>!r.transport?'None':r.transport_direction=='Both Up & Down'?'Both':'One Way';
+const H=()=>({apikey:SB_KEY,Authorization:'Bearer '+tok,'Content-Type':'application/json'});
+$('go').onclick=async()=>{if(!SB_URL){$('msg').textContent='Server not configured.';return}
+const r=await fetch(SB_URL+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:$('em').value,password:$('pw').value})});const j=await r.json();
+if(!j.access_token){$('msg').textContent='Sign-in failed.';return}tok=j.access_token;$('login').style.display='none';$('app').style.display='block';load()};
+async function load(){const r=await fetch(SB_URL+'/rest/v1/registrations?select=*&order=created_at.desc',{headers:H()});D=await r.json();if(!Array.isArray(D)){D=[];}draw()}
+function rows(){const q=$('q').value.toLowerCase();return D.filter(r=>(!q||(r.name+r.mobile+r.registration_no).toLowerCase().includes(q))&&(!$('fp').value||r.payment_status==$('fp').value)&&(!$('fm').value||r.payment_method==$('fm').value)&&(!$('ft').value||tr(r)==$('ft').value)&&(!$('fr').value||(r.registration_status=='CONFIRMED')==($('fr').value=='Confirmed')))}
+function draw(){const c=f=>D.filter(f).length;$('st').innerHTML=[['TOTAL REGISTRATIONS',D.length],['PAID',c(r=>r.payment_status=='PAID')],['PAYMENT PENDING',c(r=>r.payment_status!='PAID')],['CASH PENDING',c(r=>r.payment_method=='Cash'&&r.payment_status!='PAID')],['TRANSPORT REQUIRED',c(r=>r.transport)],['BOTH-WAY TRANSPORT',c(r=>tr(r)=='Both')]].map(x=>`<div>${x[0]}<b>${x[1]}</b></div>`).join('');
+const tb=$('tb');tb.textContent='';rows().forEach(r=>{const t=document.createElement('tr');[r.registration_no,r.name,r.mobile,r.city,'₹'+r.total_amount,r.payment_method,r.payment_status,tr(r),r.registration_status,'WA:'+r.whatsapp_status+' SMS:'+r.sms_status,new Date(r.created_at).toLocaleString()].forEach(v=>{const d=document.createElement('td');d.textContent=v??'';t.appendChild(d)});
+const d=document.createElement('td');if(r.payment_status!='PAID'&&r.payment_method=='Cash'){const b=document.createElement('button');b.className='s';b.textContent='MARK AS PAID';b.onclick=async()=>{const by=prompt('Collected by (optional)')||null;const x=await fetch(SB_URL+'/functions/v1/api/admin-mark-paid',{method:'POST',headers:H(),body:JSON.stringify({registration_no:r.registration_no,by})});const j=await x.json();if(j.ok)load();else alert('Failed')};d.appendChild(b)}t.appendChild(d);tb.appendChild(t)})}
+['q','fp','fm','ft','fr'].forEach(i=>$(i).oninput=draw);
+$('ex').onclick=()=>{const h=['registration_no','created_at','name','mobile','city','age','gender','emergency_name','emergency_number','relationship','medical','transport','transport_direction','event_fee','transport_fee','total_amount','payment_method','payment_status','payment_id','paid_at','collected_by','registration_status','notify_pref','whatsapp_status','sms_status','notes'];
+const e=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const csv='\ufeff'+h.join(',')+'\n'+rows().map(r=>h.map(k=>e(r[k])).join(',')).join('\n');
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='registrations.csv';a.click()};
+</script></body></html>
